@@ -1,0 +1,6 @@
+# The framework itself uses Python's standard library for HTTP and JSON.
+# These packages are already used by the existing CUMCM virtual environment
+# and will be needed by later modeling modules.
+numpy
+pandas
+scipy
