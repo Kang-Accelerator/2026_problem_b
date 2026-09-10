@@ -49,6 +49,10 @@ def _plot_case(case: dict, result: dict, png_path: Path, pdf_path: Path, jpg_pat
 
     coverage_text = "可覆盖" if main["coverage_possible"] else "不可覆盖"
     case_name = str(case.get("display_name_zh", result["case_id"]))
+    # 中文案例名可能来自历史数据，绘图标题不再承载任何分档评价含义。
+    for forbidden_label in ("良好", "较差", "临界"):
+        case_name = case_name.replace(forbidden_label, "")
+    case_name = " ".join(case_name.split()) or result["case_id"]
     diameter_value = main.get("diameter_m")
     diameter_text = "不可用（空区域）" if diameter_value is None else f"{float(diameter_value):.2f} 米"
     mec_text = "不可用（空区域）" if main.get("mec_radius_m") is None else f"{mec_radius:.2f} 米"
