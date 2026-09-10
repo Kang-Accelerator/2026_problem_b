@@ -1,0 +1,702 @@
+[
+  {
+    "case_id": "two_point_example",
+    "display_name_zh": "双点示例",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -900.0, "y": -400.0, "bearing_deg": 35.0},
+      {"x": 700.0, "y": -800.0, "bearing_deg": 120.0}
+    ]
+  },
+  {
+    "case_id": "acute_three_point_counterexample",
+    "display_name_zh": "三点锐角反例",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": 186.726, "y": -576.202, "bearing_deg": 49.3143},
+      {"x": 1777.271, "y": -407.314, "bearing_deg": 111.5205},
+      {"x": -3.883, "y": 1004.497, "bearing_deg": 350.3769}
+    ]
+  },
+  {
+    "case_id": "bearing_wrap",
+    "display_name_zh": "方位角跨界",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -900.0, "y": 91.3, "bearing_deg": 0.5},
+      {"x": -900.0, "y": 108.7, "bearing_deg": 359.5}
+    ]
+  },
+  {
+    "case_id": "near_parallel",
+    "display_name_zh": "近似平行",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -1200.0, "y": 0.0, "bearing_deg": 0.0},
+      {"x": 1200.0, "y": 1.0, "bearing_deg": 0.0}
+    ]
+  },
+  {
+    "case_id": "inconsistent_observation",
+    "display_name_zh": "不一致观测空区域",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 720,
+    "points": [
+      {"x": 0.0, "y": 0.0, "bearing_deg": 0.0},
+      {"x": 0.0, "y": 100.0, "bearing_deg": 180.0}
+    ]
+  },
+  {
+    "case_id": "single_detection_point",
+    "display_name_zh": "单检测点退化",
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": 0.0, "y": 0.0, "bearing_deg": 359.5}
+    ]
+  },
+  {
+    "case_id": "four_point_good_intersection",
+    "display_name_zh": "四点良好交会",
+    "true_source": {"x": 200.0, "y": -150.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -200.0, "y": -150.0, "bearing_deg": 359.8},
+      {"x": 200.0, "y": -550.0, "bearing_deg": 90.1},
+      {"x": 600.0, "y": -150.0, "bearing_deg": 179.85},
+      {"x": 200.0, "y": 250.0, "bearing_deg": 270.25}
+    ]
+  },
+  {
+    "case_id": "five_point_near_parallel",
+    "display_name_zh": "五点临界定位",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -861.0, "y": -602.7, "bearing_deg": 34.792020},
+      {"x": -430.5, "y": -688.8, "bearing_deg": 58.094617},
+      {"x": 0.0, "y": -731.85, "bearing_deg": 89.85},
+      {"x": 430.5, "y": -688.8, "bearing_deg": 122.205383},
+      {"x": 861.0, "y": -602.7, "bearing_deg": 144.757980}
+    ]
+  },
+  {
+    "case_id": "six_point_angle_wrap",
+    "display_name_zh": "六点角度跨界较差",
+    "true_source": {"x": 150.0, "y": 80.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -1700.0, "y": 65.0, "bearing_deg": 0.114550},
+      {"x": -1700.0, "y": 75.0, "bearing_deg": 0.354853},
+      {"x": -1700.0, "y": 85.0, "bearing_deg": 359.695147},
+      {"x": -1600.0, "y": 100.0, "bearing_deg": 359.445220},
+      {"x": -1500.0, "y": 120.0, "bearing_deg": 358.361283},
+      {"x": -1400.0, "y": 140.0, "bearing_deg": 358.083206}
+    ]
+  },
+  {
+    "case_id": "eight_point_small_region",
+    "display_name_zh": "八点小区域良好",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -450.0, "y": -360.0, "bearing_deg": 38.359808},
+      {"x": 0.0, "y": -510.0, "bearing_deg": 90.100000},
+      {"x": 450.0, "y": -360.0, "bearing_deg": 141.140192},
+      {"x": 510.0, "y": 0.0, "bearing_deg": 180.250000},
+      {"x": 450.0, "y": 360.0, "bearing_deg": 218.509808},
+      {"x": 0.0, "y": 510.0, "bearing_deg": 270.300000},
+      {"x": -450.0, "y": 360.0, "bearing_deg": 321.090192},
+      {"x": -510.0, "y": 0.0, "bearing_deg": 0.050000}
+    ]
+  },
+  {
+    "case_id": "ten_point_large_region",
+    "display_name_zh": "十点临界定位",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -829.0, "y": -580.3, "bearing_deg": 34.792020},
+      {"x": -663.2, "y": -663.2, "bearing_deg": 45.100000},
+      {"x": -497.4, "y": -704.65, "bearing_deg": 54.632407},
+      {"x": -331.6, "y": -746.1, "bearing_deg": 66.237511},
+      {"x": -165.8, "y": -770.97, "bearing_deg": 77.613176},
+      {"x": 0.0, "y": -787.55, "bearing_deg": 90.050000},
+      {"x": 165.8, "y": -770.97, "bearing_deg": 102.036824},
+      {"x": 331.6, "y": -746.1, "bearing_deg": 114.112489},
+      {"x": 497.4, "y": -704.65, "bearing_deg": 125.017593},
+      {"x": 663.2, "y": -663.2, "bearing_deg": 135.250000}
+    ]
+  },
+  {
+    "case_id": "two_point_good_intersection",
+    "display_name_zh": "双点良好交会",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -300.0, "y": 0.0, "bearing_deg": 359.8},
+      {"x": 0.0, "y": -300.0, "bearing_deg": 90.15}
+    ]
+  },
+  {
+    "case_id": "three_point_good_intersection",
+    "display_name_zh": "三点良好交会",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": -400.0, "y": 0.0, "bearing_deg": 359.8},
+      {"x": 0.0, "y": -400.0, "bearing_deg": 90.1},
+      {"x": 400.0, "y": 0.0, "bearing_deg": 179.85}
+    ]
+  },
+  {
+    "case_id": "six_point_good_intersection",
+    "display_name_zh": "六点良好交会",
+    "true_source": {"x": 0.0, "y": 0.0},
+    "R": 1800.0,
+    "delta_deg": 1.0,
+    "N": 3600,
+    "points": [
+      {"x": 360.0, "y": 0.0, "bearing_deg": 179.75},
+      {"x": 180.0, "y": 312.0, "bearing_deg": 240.118361},
+      {"x": -180.0, "y": 312.0, "bearing_deg": 299.831639},
+      {"x": -360.0, "y": 0.0, "bearing_deg": 0.2},
+      {"x": -180.0, "y": -312.0, "bearing_deg": 59.818361},
+      {"x": 180.0, "y": -312.0, "bearing_deg": 120.231639}
+    ]
+  },
+  {
+    "case_id": "new_01_2point_good2",
+    "display_name_zh": "新增双点良好01",
+    "true_source": {
+      "x": 148.527783,
+      "y": -136.013227
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -151.472217,
+        "y": -136.013227,
+        "bearing_deg": 0.15
+      },
+      {
+        "x": 148.527783,
+        "y": -436.013227,
+        "bearing_deg": 89.85
+      }
+    ]
+  },
+  {
+    "case_id": "new_02_2point_good2",
+    "display_name_zh": "新增双点良好02",
+    "true_source": {
+      "x": 169.949581,
+      "y": 282.107036
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -230.050419,
+        "y": 282.107036,
+        "bearing_deg": 359.85
+      },
+      {
+        "x": 169.949581,
+        "y": -117.892964,
+        "bearing_deg": 90.25
+      }
+    ]
+  },
+  {
+    "case_id": "new_03_2point_good2",
+    "display_name_zh": "新增双点良好03",
+    "true_source": {
+      "x": -62.937392,
+      "y": -294.542164
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -512.937392,
+        "y": -294.542164,
+        "bearing_deg": 0.25
+      },
+      {
+        "x": -62.937392,
+        "y": -744.542164,
+        "bearing_deg": 89.9
+      }
+    ]
+  },
+  {
+    "case_id": "new_04_2point_good2",
+    "display_name_zh": "新增双点良好04",
+    "true_source": {
+      "x": 55.901813,
+      "y": -107.518298
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -444.098187,
+        "y": -107.518298,
+        "bearing_deg": 359.9
+      },
+      {
+        "x": 55.901813,
+        "y": -607.518298,
+        "bearing_deg": 90.2
+      }
+    ]
+  },
+  {
+    "case_id": "new_05_2point_marginal2",
+    "display_name_zh": "新增双点临界05",
+    "true_source": {
+      "x": 55.187368,
+      "y": 132.789788
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -744.812632,
+        "y": 132.789788,
+        "bearing_deg": 0.2
+      },
+      {
+        "x": 55.187368,
+        "y": -667.210212,
+        "bearing_deg": 89.75
+      }
+    ]
+  },
+  {
+    "case_id": "new_06_2point_marginal2",
+    "display_name_zh": "新增双点临界06",
+    "true_source": {
+      "x": -122.577201,
+      "y": -334.222777
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -922.577201,
+        "y": -334.222777,
+        "bearing_deg": 359.75
+      },
+      {
+        "x": -122.577201,
+        "y": -1134.222777,
+        "bearing_deg": 90.1
+      }
+    ]
+  },
+  {
+    "case_id": "new_07_2point_wrap2",
+    "display_name_zh": "新增双点跨界07",
+    "true_source": {
+      "x": -80.06635,
+      "y": 91.270919
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -1280.06635,
+        "y": 83.270919,
+        "bearing_deg": 0.481966
+      },
+      {
+        "x": -1280.06635,
+        "y": 99.270919,
+        "bearing_deg": 359.418034
+      }
+    ]
+  },
+  {
+    "case_id": "new_08_2point_wrap2",
+    "display_name_zh": "新增双点跨界08",
+    "true_source": {
+      "x": -9.476267,
+      "y": -200.547982
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -1209.476267,
+        "y": -208.547982,
+        "bearing_deg": 0.181966
+      },
+      {
+        "x": -1209.476267,
+        "y": -192.547982,
+        "bearing_deg": 359.768034
+      }
+    ]
+  },
+  {
+    "case_id": "new_09_2point_cluster2",
+    "display_name_zh": "新增双点近似平行09",
+    "true_source": {
+      "x": 132.405136,
+      "y": 162.760104
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": 210.358345,
+        "y": 1460.420805,
+        "bearing_deg": 266.712253
+      },
+      {
+        "x": 54.451928,
+        "y": 1460.420805,
+        "bearing_deg": 273.287747
+      }
+    ]
+  },
+  {
+    "case_id": "new_10_2point_cluster2",
+    "display_name_zh": "新增双点近似平行10",
+    "true_source": {
+      "x": 46.837542,
+      "y": 260.268911
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": 124.790751,
+        "y": 1557.929613,
+        "bearing_deg": 266.412253
+      },
+      {
+        "x": -31.115666,
+        "y": 1557.929613,
+        "bearing_deg": 273.687747
+      }
+    ]
+  },
+  {
+    "case_id": "new_11_2point_cluster2",
+    "display_name_zh": "新增双点近似平行11",
+    "true_source": {
+      "x": 80.569441,
+      "y": -318.081604
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": 158.522649,
+        "y": 979.579098,
+        "bearing_deg": 266.812253
+      },
+      {
+        "x": 2.616233,
+        "y": 979.579098,
+        "bearing_deg": 273.337747
+      }
+    ]
+  },
+  {
+    "case_id": "new_12_2point_cluster2",
+    "display_name_zh": "新增双点近似平行12",
+    "true_source": {
+      "x": 273.761351,
+      "y": -151.896226
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": 351.71456,
+        "y": 1145.764476,
+        "bearing_deg": 266.462253
+      },
+      {
+        "x": 195.808143,
+        "y": 1145.764476,
+        "bearing_deg": 273.637747
+      }
+    ]
+  },
+  {
+    "case_id": "new_13_3point_good3",
+    "display_name_zh": "新增三点良好13",
+    "true_source": {
+      "x": -150.387416,
+      "y": -67.187421
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -550.387416,
+        "y": -67.187421,
+        "bearing_deg": 0.2
+      },
+      {
+        "x": -150.387416,
+        "y": -467.187421,
+        "bearing_deg": 89.75
+      },
+      {
+        "x": 249.612584,
+        "y": -67.187421,
+        "bearing_deg": 180.1
+      }
+    ]
+  },
+  {
+    "case_id": "new_14_3point_good3",
+    "display_name_zh": "新增三点良好14",
+    "true_source": {
+      "x": -203.182324,
+      "y": -232.288462
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -703.182324,
+        "y": -232.288462,
+        "bearing_deg": 359.75
+      },
+      {
+        "x": -203.182324,
+        "y": -732.288462,
+        "bearing_deg": 90.1
+      },
+      {
+        "x": 296.817676,
+        "y": -232.288462,
+        "bearing_deg": 179.8
+      }
+    ]
+  },
+  {
+    "case_id": "new_15_3point_marginal3",
+    "display_name_zh": "新增三点临界15",
+    "true_source": {
+      "x": 35.721831,
+      "y": -5.026736
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -764.278169,
+        "y": -5.026736,
+        "bearing_deg": 0.1
+      },
+      {
+        "x": 35.721831,
+        "y": -805.026736,
+        "bearing_deg": 89.8
+      },
+      {
+        "x": 835.721831,
+        "y": -5.026736,
+        "bearing_deg": 180.15
+      }
+    ]
+  },
+  {
+    "case_id": "new_16_3point_cluster3",
+    "display_name_zh": "新增三点近似平行16",
+    "true_source": {
+      "x": -235.885407,
+      "y": 227.88054
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -365.885407,
+        "y": -1072.11946,
+        "bearing_deg": 84.089407
+      },
+      {
+        "x": -235.885407,
+        "y": -1098.11946,
+        "bearing_deg": 90.15
+      },
+      {
+        "x": -105.885407,
+        "y": -1072.11946,
+        "bearing_deg": 95.560593
+      }
+    ]
+  },
+  {
+    "case_id": "new_17_3point_cluster3",
+    "display_name_zh": "新增三点近似平行17",
+    "true_source": {
+      "x": -22.043273,
+      "y": 397.113809
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -152.043273,
+        "y": -902.886191,
+        "bearing_deg": 84.439407
+      },
+      {
+        "x": -22.043273,
+        "y": -928.886191,
+        "bearing_deg": 89.85
+      },
+      {
+        "x": 107.956727,
+        "y": -902.886191,
+        "bearing_deg": 95.960593
+      }
+    ]
+  },
+  {
+    "case_id": "new_18_3point_cluster3",
+    "display_name_zh": "新增三点近似平行18",
+    "true_source": {
+      "x": 54.912049,
+      "y": 265.886365
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -75.087951,
+        "y": -1034.113635,
+        "bearing_deg": 84.139407
+      },
+      {
+        "x": 54.912049,
+        "y": -1060.113635,
+        "bearing_deg": 90.25
+      },
+      {
+        "x": 184.912049,
+        "y": -1034.113635,
+        "bearing_deg": 95.610593
+      }
+    ]
+  },
+  {
+    "case_id": "new_19_4point_good4",
+    "display_name_zh": "新增四点良好19",
+    "true_source": {
+      "x": -231.361512,
+      "y": -3.952092
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": -681.361512,
+        "y": -3.952092,
+        "bearing_deg": 0.25
+      },
+      {
+        "x": -231.361512,
+        "y": -453.952092,
+        "bearing_deg": 89.9
+      },
+      {
+        "x": 218.638488,
+        "y": -3.952092,
+        "bearing_deg": 180.2
+      },
+      {
+        "x": -231.361512,
+        "y": 446.047908,
+        "bearing_deg": 269.75
+      }
+    ]
+  },
+  {
+    "case_id": "new_20_4point_cluster4",
+    "display_name_zh": "新增四点近似平行20",
+    "true_source": {
+      "x": 258.140557,
+      "y": -97.495286
+    },
+    "R": 1800,
+    "delta_deg": 1,
+    "N": 3600,
+    "points": [
+      {
+        "x": 48.140557,
+        "y": -1497.495286,
+        "bearing_deg": 81.369234
+      },
+      {
+        "x": 188.140557,
+        "y": -1525.495286,
+        "bearing_deg": 87.39363
+      },
+      {
+        "x": 328.140557,
+        "y": -1511.495286,
+        "bearing_deg": 92.584111
+      },
+      {
+        "x": 468.140557,
+        "y": -1497.495286,
+        "bearing_deg": 98.630766
+      }
+    ]
+  }
+]
