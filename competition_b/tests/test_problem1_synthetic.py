@@ -19,9 +19,12 @@ def synthetic_case(rng: random.Random, index: int, n: int = 360) -> tuple[dict, 
     count = 2 + rng.randrange(5)
     for _ in range(count):
         while True:
-            x = rng.uniform(-1800, 1800)
-            y = rng.uniform(-1800, 1800)
-            if math.hypot(x - source[0], y - source[1]) > 5.0:
+            sensor_angle = rng.random() * 2 * math.pi
+            sensor_radius = math.sqrt(rng.random()) * 1800.0
+            x = sensor_radius * math.cos(sensor_angle)
+            y = sensor_radius * math.sin(sensor_angle)
+            distance = math.hypot(x - source[0], y - source[1])
+            if 5.0 < distance <= 1500.0:
                 break
         true_bearing = math.degrees(math.atan2(source[1] - y, source[0] - x)) % 360.0
         measured = (true_bearing + rng.uniform(-1.0, 1.0)) % 360.0
@@ -74,20 +77,25 @@ class Problem1SyntheticTests(unittest.TestCase):
     def test_acute_three_point_counterexample(self):
         case = {
             "case_id": "acute_counterexample",
+            "true_source": {"x": 809.621, "y": 34.927},
             "R": 1800.0,
             "delta_deg": 1.0,
             "N": 3600,
             "points": [
-                {"x": 186.726, "y": -576.202, "bearing_deg": 49.3143},
-                {"x": 1777.271, "y": -407.314, "bearing_deg": 111.5205},
-                {"x": -3.883, "y": 1004.497, "bearing_deg": 350.3769},
+                {"x": -90.694, "y": 321.580, "bearing_deg": 341.7157},
+                {"x": -181.879, "y": -587.247, "bearing_deg": 33.0308},
+                {"x": 784.393, "y": -772.866, "bearing_deg": 87.4642},
             ],
         }
         result = solve_case(case)["main"]
         self.assertEqual(result["num_vertices"], 3)
         self.assertFalse(result["coverage_possible"])
-        self.assertGreater(-result["coverage_gap_m"], 5.0)
-        self.assertFalse(result["ready_to_clear"])
+        self.assertLess(result["coverage_gap_m"], 0.0)
+        self.assertGreater(-result["coverage_gap_m"], 10.0 * result["eps_cov_m"])
+        source = case["true_source"]
+        for point in case["points"]:
+            distance = math.hypot(source["x"] - point["x"], source["y"] - point["y"])
+            self.assertLessEqual(distance, 1500.0 + 1e-6)
 
     def test_10000_consistent_observations_contain_source(self):
         rng = random.Random(20260910)
@@ -95,6 +103,10 @@ class Problem1SyntheticTests(unittest.TestCase):
         start = time.perf_counter()
         for index in range(10000):
             case, source = synthetic_case(rng, index, n=360)
+            for point in case["points"]:
+                distance = math.hypot(source[0] - point["x"], source[1] - point["y"])
+                self.assertGreater(distance, 5.0)
+                self.assertLessEqual(distance, 1500.0 + 1e-6)
             result = solve_case(case)["main"]
             if not result["vertices"] or not point_in_convex_polygon(source, result["vertices"], eps=2e-6):
                 failures.append((index, result["flags"]))

@@ -1133,7 +1133,7 @@ def _plot_four_case_summary(
     output_dir: Path,
     requested_case_ids: list[str] | None = None,
 ) -> None:
-    """把四个代表案例画在同一张 2×2 图中，并共用一份图例。"""
+    """汇总四个案例；每个案例包含全局图和局部放大图，并共用一份图例。"""
 
     import matplotlib
 
@@ -1174,94 +1174,142 @@ def _plot_four_case_summary(
         "font.sans-serif": ["Microsoft YaHei", "SimHei", "SimSun", "DejaVu Sans"],
         "axes.unicode_minus": False,
     })
-    fig, axes = plt.subplots(2, 2, figsize=(15.0, 12.2), dpi=220)
+    fig = plt.figure(figsize=(22.0, 12.4), dpi=220)
+    grid = fig.add_gridspec(
+        2, 4, left=0.045, right=0.985, bottom=0.16, top=0.90,
+        wspace=0.20, hspace=0.30,
+    )
+    all_axes: list[Any] = []
+    overview_axes: list[Any] = []
     theta = np.linspace(0.0, 2.0 * np.pi, 720)
-    for panel, case_id in zip(axes.flat, selected_ids):
+    for case_index, case_id in enumerate(selected_ids):
+        row = case_index // 2
+        first_column = 2 * (case_index % 2)
+        overview = fig.add_subplot(grid[row, first_column])
+        zoom = fig.add_subplot(grid[row, first_column + 1])
+        panels = (overview, zoom)
+        all_axes.extend(panels)
+        overview_axes.append(overview)
         case, result = by_id[case_id]
         config = parse_config(case)
         region = result["candidate_region"]
         outer = np.asarray(result["possible_source_set"].get("convex_outer_vertices", []), dtype=float)
         sources = np.asarray(result["possible_source_set"].get("sample_points", []), dtype=float)
         groups = _plot_point_groups(result)
-        panel.plot(
-            config.target.cx + config.target.radius * np.cos(theta),
-            config.target.cy + config.target.radius * np.sin(theta),
-            color=palette["target"], lw=1.1, ls=(0, (6, 4)), label="目标圆域",
-        )
-        panel.scatter([config.s1[0]], [config.s1[1]], marker="s", s=48, color=palette["s1"],
-                      edgecolors="white", linewidths=0.7, label="首次检测点 S1", zorder=7)
-        panel.add_patch(Circle(config.s1, config.rho_max, fill=False, ls=":", color=palette["receive"],
-                               lw=0.9, label="1500米接收上界"))
-        if len(outer):
-            panel.add_patch(Polygon(outer, closed=True, facecolor=palette["outer_face"], alpha=0.20,
-                                    edgecolor=palette["outer_edge"], lw=1.2, label="保守外包 U_bar"))
-        if len(sources):
-            panel.scatter(sources[:, 0], sources[:, 1], s=10, color=palette["source"], alpha=0.58,
-                          label="公式生成源样本 U")
+        for panel_index, panel in enumerate(panels):
+            show_label = panel_index == 0
+            panel.plot(
+                config.target.cx + config.target.radius * np.cos(theta),
+                config.target.cy + config.target.radius * np.sin(theta),
+                color=palette["target"], lw=1.1, ls=(0, (6, 4)),
+                label="目标圆域" if show_label else None,
+            )
+            panel.scatter([config.s1[0]], [config.s1[1]], marker="s", s=48, color=palette["s1"],
+                          edgecolors="white", linewidths=0.7,
+                          label="首次检测点 S1" if show_label else None, zorder=7)
+            panel.add_patch(Circle(config.s1, config.rho_max, fill=False, ls=":", color=palette["receive"],
+                                   lw=0.9, label="1500米接收上界" if show_label else None))
+            if len(outer):
+                panel.add_patch(Polygon(outer, closed=True, facecolor=palette["outer_face"], alpha=0.20,
+                                        edgecolor=palette["outer_edge"], lw=1.2,
+                                        label="保守外包 U_bar" if show_label else None))
+            if len(sources):
+                panel.scatter(sources[:, 0], sources[:, 1], s=10, color=palette["source"], alpha=0.58,
+                              label="公式生成源样本 U" if show_label else None)
         stencil = groups["region_stencil"]
         if stencil:
-            panel.scatter([float(row["x"]) for row in stencil], [float(row["y"]) for row in stencil],
-                          s=24, color=palette["stencil"], alpha=0.78, edgecolors="none",
-                          label="实际区域评分点")
+            for panel_index, panel in enumerate(panels):
+                panel.scatter([float(item["x"]) for item in stencil], [float(item["y"]) for item in stencil],
+                              s=24, color=palette["stencil"], alpha=0.78, edgecolors="none",
+                              label="实际区域评分点" if panel_index == 0 else None)
         non_near = groups["non_near_search"]
         if non_near:
-            panel.scatter([float(row["x"]) for row in non_near], [float(row["y"]) for row in non_near],
-                          s=31, facecolors=palette["non_near_face"], edgecolors=palette["non_near_edge"],
-                          linewidths=1.0, label="认证通过但非近优搜索点", zorder=5)
+            for panel_index, panel in enumerate(panels):
+                panel.scatter([float(item["x"]) for item in non_near], [float(item["y"]) for item in non_near],
+                              s=31, facecolors=palette["non_near_face"], edgecolors=palette["non_near_edge"],
+                              linewidths=1.0, label="认证通过但非近优搜索点" if panel_index == 0 else None,
+                              zorder=5)
         near = groups["near_optimal_seed"]
         if near:
-            panel.scatter([float(row["x"]) for row in near], [float(row["y"]) for row in near], marker="*",
-                          s=92, color=palette["near_seed"], edgecolors=palette["near_seed_edge"], linewidths=0.7,
-                          label="认证通过的近优种子", zorder=8)
+            for panel_index, panel in enumerate(panels):
+                panel.scatter([float(item["x"]) for item in near], [float(item["y"]) for item in near], marker="*",
+                              s=92, color=palette["near_seed"], edgecolors=palette["near_seed_edge"], linewidths=0.7,
+                              label="认证通过的近优种子" if panel_index == 0 else None, zorder=8)
         failed = [row for row in region.get("evaluated_points", []) if row.get("status") == "receive_failed"]
         if failed:
-            panel.scatter([float(row["x"]) for row in failed], [float(row["y"]) for row in failed], marker="x",
-                          s=27, color=palette["failed"], linewidths=1.1, label="接收不合格检查点", zorder=6)
+            for panel_index, panel in enumerate(panels):
+                panel.scatter([float(item["x"]) for item in failed], [float(item["y"]) for item in failed], marker="x",
+                              s=27, color=palette["failed"], linewidths=1.1,
+                              label="接收不合格检查点" if panel_index == 0 else None, zorder=6)
         for cell in region.get("cells", []):
-            vertices = cell.get("vertices")
-            if vertices is not None:
-                panel.add_patch(Polygon(np.asarray(vertices, dtype=float), closed=True,
-                                        facecolor=palette["cell_face"], edgecolor="none", zorder=4))
-            else:
-                bounds = cell["bounds"]
-                panel.add_patch(Rectangle((bounds[0], bounds[2]), bounds[1] - bounds[0], bounds[3] - bounds[2],
-                                          facecolor=palette["cell_face"], edgecolor="none", zorder=4))
+            for panel in panels:
+                vertices = cell.get("vertices")
+                if vertices is not None:
+                    panel.add_patch(Polygon(np.asarray(vertices, dtype=float), closed=True,
+                                            facecolor=palette["cell_face"], edgecolor="none", zorder=4))
+                else:
+                    bounds = cell["bounds"]
+                    panel.add_patch(Rectangle((bounds[0], bounds[2]), bounds[1] - bounds[0], bounds[3] - bounds[2],
+                                              facecolor=palette["cell_face"], edgecolor="none", zorder=4))
         segments = np.asarray(region.get("boundary_segments", []), dtype=float)
         if len(segments):
-            panel.add_collection(LineCollection(segments, colors=palette["boundary"], linewidths=2.8,
-                                                linestyles="--", label="优先推荐区域（离散近似）", zorder=7))
+            for panel_index, panel in enumerate(panels):
+                panel.add_collection(LineCollection(segments, colors=palette["boundary"], linewidths=2.8,
+                                                    linestyles="--",
+                                                    label="优先推荐区域（离散近似）" if panel_index == 0 else None,
+                                                    zorder=7))
         heuristic = result.get("heuristic_reference") or {}
         thales_points = heuristic.get("thales_s2_pair") or ([heuristic["thales_s2"]] if heuristic.get("thales_s2") else [])
         if thales_points:
-            panel.scatter([float(point["x"]) for point in thales_points],
-                          [float(point["y"]) for point in thales_points], marker="D", s=58,
-                          facecolors="none", edgecolors=palette["thales"], linewidths=1.6,
-                          label="泰勒斯启发式参考点对", zorder=9)
-        panel.set_xlim(config.target.cx - config.target.radius * 1.08, config.target.cx + config.target.radius * 1.08)
-        panel.set_ylim(config.target.cy - config.target.radius * 1.08, config.target.cy + config.target.radius * 1.08)
-        panel.set_aspect("equal", adjustable="box")
-        panel.set_anchor("C")
-        tick_step = _nice_tick_step(2.16 * config.target.radius, target_intervals=6)
-        panel.xaxis.set_major_locator(MultipleLocator(tick_step))
-        panel.yaxis.set_major_locator(MultipleLocator(tick_step))
-        panel.set_xlabel("x / 米")
-        panel.set_ylabel("y / 米")
-        panel.grid(color=palette["grid"], alpha=0.32, lw=0.6)
+            for panel_index, panel in enumerate(panels):
+                panel.scatter([float(point["x"]) for point in thales_points],
+                              [float(point["y"]) for point in thales_points], marker="D", s=58,
+                              facecolors="none", edgecolors=palette["thales"], linewidths=1.6,
+                              label="泰勒斯启发式参考点对" if panel_index == 0 else None, zorder=9)
+
+        overview.set_xlim(config.target.cx - config.target.radius * 1.08, config.target.cx + config.target.radius * 1.08)
+        overview.set_ylim(config.target.cy - config.target.radius * 1.08, config.target.cy + config.target.radius * 1.08)
+        if len(segments):
+            zoom_points = segments.reshape((-1, 2))
+        elif stencil:
+            zoom_points = np.asarray([[float(item["x"]), float(item["y"])] for item in stencil], dtype=float)
+        elif len(outer):
+            zoom_points = outer
+        else:
+            zoom_points = np.asarray([config.s1], dtype=float)
+        low = zoom_points.min(axis=0)
+        high = zoom_points.max(axis=0)
+        zoom_center = (low + high) / 2.0
+        zoom_span = max(4.0 * region.get("min_cell_size_m", 1.0), float(np.max(high - low))) * 1.45
+        zoom.set_xlim(zoom_center[0] - zoom_span / 2.0, zoom_center[0] + zoom_span / 2.0)
+        zoom.set_ylim(zoom_center[1] - zoom_span / 2.0, zoom_center[1] + zoom_span / 2.0)
+
+        for panel in panels:
+            panel.set_aspect("equal", adjustable="box")
+            panel.set_anchor("C")
+            x_span = abs(float(panel.get_xlim()[1] - panel.get_xlim()[0]))
+            y_span = abs(float(panel.get_ylim()[1] - panel.get_ylim()[0]))
+            tick_step = _nice_tick_step(max(x_span, y_span), target_intervals=5)
+            panel.xaxis.set_major_locator(MultipleLocator(tick_step))
+            panel.yaxis.set_major_locator(MultipleLocator(tick_step))
+            panel.set_xlabel("x / 米")
+            panel.set_ylabel("y / 米")
+            panel.grid(color=palette["grid"], alpha=0.32, lw=0.6)
         case_name = str(case.get("display_name_zh", case_id)).replace("问题2", "").strip()
-        panel.set_title(case_name, color=palette["target"], fontsize=12)
+        overview.set_title(f"{case_name}｜全局图", color=palette["target"], fontsize=11)
+        zoom.set_title("局部放大图", color=palette["target"], fontsize=11)
 
     handles: list[Any] = []
     labels: list[str] = []
-    for panel in axes.flat:
+    for panel in overview_axes:
         panel_handles, panel_labels = panel.get_legend_handles_labels()
         for handle, label in zip(panel_handles, panel_labels):
             if label not in labels:
                 handles.append(handle)
                 labels.append(label)
-    fig.suptitle("问题2第二检测点优先区域：四案例对照", fontsize=16, fontweight="bold", color=palette["target"])
+    fig.suptitle("问题2第二检测点优先区域：四案例全局图与局部放大图", fontsize=16, fontweight="bold", color=palette["target"])
     fig.legend(handles, labels, loc="lower center", bbox_to_anchor=(0.5, 0.025), ncol=5, fontsize=9,
                framealpha=0.96, edgecolor="#C7D2DE", columnspacing=1.25, handletextpad=0.65)
-    fig.subplots_adjust(left=0.06, right=0.98, bottom=0.15, top=0.91, wspace=0.16, hspace=0.23)
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = output_dir / "problem2_four_case_summary"
     fig.savefig(stem.with_suffix(".jpg"), dpi=300, bbox_inches="tight", pil_kwargs={"quality": 95, "optimize": True})

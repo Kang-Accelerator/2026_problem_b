@@ -30,7 +30,7 @@
 .venv\Scripts\python.exe competition_b\code\problem2_solve.py --input competition_b\data\problem2_cases.json --out competition_b\results --no-plots
 ```
 
-输出包括 `problem2_report.json`、`problem2_summary.csv`、每案例的 JPG/PDF 单图，以及共用一份图例的 `problem2_four_case_summary.jpg/.pdf` 四案例汇总图；不再生成 PNG。默认汇总跨零度、外部近切线、近距离分支和多分量探测这四个理想对称案例，也可用 `--summary-case-ids CASE1 CASE2 CASE3 CASE4` 指定四个案例。JSON 将不可评分的非有限值写为标准 `null`；CSV 同步记录阈值、源样本数、基础/最小单元尺寸、细分深度、9点模板及接收/评分验证范围。`results/`、`figures/`、`logs/` 和缓存文件由 Git 忽略，结果可由上述命令重新生成。
+输出包括 `problem2_report.json`、`problem2_summary.csv`、每案例的 JPG/PDF 单图，以及共用一份图例的 `problem2_four_case_summary.jpg/.pdf` 四案例汇总图；不再生成 PNG。汇总图中的每个案例均包含全局图和候选区域局部放大图。默认汇总跨零度、外部近切线、近距离分支和多分量探测这四个理想对称案例，也可用 `--summary-case-ids CASE1 CASE2 CASE3 CASE4` 指定四个案例。JSON 将不可评分的非有限值写为标准 `null`；CSV 同步记录阈值、源样本数、基础/最小单元尺寸、细分深度、9点模板及接收/评分验证范围。`results/`、`figures/`、`logs/` 和缓存文件由 Git 忽略，结果可由上述命令重新生成。
 
 ## 测试
 

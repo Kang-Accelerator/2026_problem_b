@@ -13,13 +13,17 @@
   {
     "case_id": "acute_three_point_counterexample",
     "display_name_zh": "三点锐角反例",
+    "true_source": {
+      "x": 809.621,
+      "y": 34.927
+    },
     "R": 1800.0,
     "delta_deg": 1.0,
     "N": 3600,
     "points": [
-      {"x": 186.726, "y": -576.202, "bearing_deg": 49.3143},
-      {"x": 1777.271, "y": -407.314, "bearing_deg": 111.5205},
-      {"x": -3.883, "y": 1004.497, "bearing_deg": 350.3769}
+      {"x": -90.694, "y": 321.580, "bearing_deg": 341.7157},
+      {"x": -181.879, "y": -587.247, "bearing_deg": 33.0308},
+      {"x": 784.393, "y": -772.866, "bearing_deg": 87.4642}
     ]
   },
   {
